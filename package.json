@@ -1,0 +1,9 @@
+{
+  "name": "redux-object-format",
+  "version": "0.1.0",
+  "description":
+    "Defines a specific format (schema) for a javascript object containing all the elements used in a common redux workflow (e.g. action types, action creators, reducers). ",
+  "keywords": ["redux"],
+  "author": "Mims H. Wright",
+  "license": "ISC"
+}
