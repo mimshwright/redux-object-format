@@ -24,6 +24,7 @@ The format is an object containing several properties. Each property is optional
   * `reducers` - An object with mappings from action types to reducer functions that handle only that type of action. The intent would be to [combine](https://redux.js.org/docs/api/combineReducers.html) these single-purpose reducers into one that handles all action types. This also allows easy modifications to the list of action types accepted by the reducer.
   * `selector` - The [selector](https://redux.js.org/docs/recipes/ComputingDerivedData.html) function to get the value from the main state tree.
   * `selectors` - An object with mappings from selector names to selector functions. Use this for any additional selectors. The root selector should be included in these.
+  * `sagas` - When using [redux-saga](https://github.com/redux-saga/redux-saga)s, this is an object with mappings from saga name to saga functions.
   * `meta` - An object containing additional metadata about the bundle.
 
     * `name` - A string for the name of this bundle.
@@ -68,9 +69,13 @@ export default { meta, actions, creators, reducers, reducer, selectors, selector
 
 ### Naming recommendations
 
-This spec doesn't define rules for naming the elements within the bundle. There are plenty of common conventions out there.
+In the interest of not being overly-prescriptive, this spec doesn't define rules for naming the elements within the bundle.
 
 ## FAQ
+
+**What about [Thunks](https://github.com/gaearon/redux-thunk)?**
+
+Thunks function the same way as action creators so would go in `creators`. If you disagree, please open an issue explaining why.
 
 **Isn't it a bad idea to group actions with a specific reducer? Actions are supposed to be usable by multiple reducers.**
 
@@ -81,7 +86,7 @@ However, this shouldn't be an issue with this format since all of the groups of 
 ```
 import {actions} from "redux/name";
 
-export const reducer = (state, action) => {
+const placeholderReducer = (state, action) => {
   if (action.type === SET_NAME) {
     if (name = "") {
       return "Please enter your name";
@@ -89,5 +94,5 @@ export const reducer = (state, action) => {
   }
 };
 
-export default { reducer };
+export default { reducer: placeholderReducer };
 ```
